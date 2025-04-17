@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div class="my-posts-container">
+    <h2>Мои посты</h2>
+
+    <a href="{% url 'create_post' %}" class="btn btn-success mb-3">Новый пост</a>
+
+    {% if posts %}
+        <div class="post-list">
+            {% for post in posts %}
+                <div class="post-item card mb-3">
+                    <div class="card-body">
+                        <h3 class="card-title"><a href="{% url 'post' post.slug %}">{{ post.title }}</a></h3>
+                        <p class="card-text">Категория: {{ post.category.name }}</p>
+                        <div class="post-actions">
+                            <a href="{% url 'delete_post' post.slug %}" class="btn btn-danger btn-sm">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">У вас нет постов(</div>
+    {% endif %}
+</div>
+{% endblock %}
